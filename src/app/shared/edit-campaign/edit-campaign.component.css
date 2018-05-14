@@ -1,0 +1,13 @@
+mat-radio-group  > mat-radio-button
+{
+    padding-right: 10px;
+}
+
+mat-dialog-content
+{
+    font-size: 14px;
+    overflow: auto;
+}
+table tr{
+    height: 75px;
+}

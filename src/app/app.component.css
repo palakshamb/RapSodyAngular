@@ -1,0 +1,19 @@
+.appNavbar
+{
+    width:100%;
+    min-height: 50px;
+    background-color: #3F51B5;
+    margin-bottom: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: start;
+    color: white;
+}
+
+.mat-menu-item {
+    font-size: 14px;
+  }
+  
+  button.mat-menu-item{
+    font-size: 14px;
+  }

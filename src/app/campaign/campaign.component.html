@@ -1,0 +1,68 @@
+<div>
+  <h3>Campaigns</h3>
+</div>
+<!-- <mat-divider></mat-divider> -->
+<div class="example-container mat-elevation-z2">
+  <table mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef class="header-cell" style="width: 20%"> Name </th>
+      <td mat-cell *matCellDef="let element" class="cell"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Entity">
+      <th mat-header-cell *matHeaderCellDef class="header-cell" style="width: 20%"> Geographic Entity </th>
+      <td mat-cell *matCellDef="let element" class="cell"> {{element.entity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ClosingDate">
+      <th mat-header-cell *matHeaderCellDef class="header-cell" style="width: 20%"> Closing Date </th>
+      <td mat-cell *matCellDef="let element" class="cell"> {{element.closingDate | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="LastModifiedDate">
+      <th mat-header-cell *matHeaderCellDef class="header-cell" style="width: 10%"> Date of Last Modification </th>
+      <td mat-cell *matCellDef="let element" class="cell" style="width: 10%"> {{element.lastModifiedDate | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="OpenedBy">
+      <th mat-header-cell *matHeaderCellDef class="header-cell" style="width: 10%"> Opened By </th>
+      <td mat-cell *matCellDef="let element" class="cell"> {{element.openedBy}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Static">
+      <th mat-header-cell *matHeaderCellDef class="header-cell" style="width: 5%"> Static </th>
+      <td mat-cell *matCellDef="let element" class="cell"> {{element.static}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Dynamic">
+      <th mat-header-cell *matHeaderCellDef class="header-cell" style="width: 5%"> Dynamic </th>
+      <td mat-cell *matCellDef="let element" class="cell"> {{element.dynamic}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Delete">
+      <th mat-header-cell *matHeaderCellDef class="header-cell" style="width: 5%"> Delete </th>
+      <td mat-cell *matCellDef="let element" class="cell">  
+        <button mat-icon-button (click)="deleteCampaign(element.id)">
+          <mat-icon aria-label="delete">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="row"></tr>
+  </table>
+</div>
+<div style="margin-top: 5px">
+  <div style="float: left;">
+    <div class="button_verti">
+      <button mat-raised-button (click)="addCampaign()">
+        CREATE NEW CAMPAIGN
+        <mat-icon aria-label="add">add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div style="float: right;">
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" (page)="pageEvent($event)">
+    </mat-paginator>
+  </div>
+</div>

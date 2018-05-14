@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{type}} Campaign</h2>
+<mat-dialog-content >
+  <form class="example-form">
+    <table>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput placeholder="Name of the Campaign" name="CampaignName" [(ngModel)]="CampaignName" required>
+            <mat-error *ngIf="campaignValidator.hasError('required')">Please provide a name for the campaign</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-select placeholder="Geographic Entity" name="Entity" [(ngModel)]="Entity">
+              <mat-option *ngFor="let entity of Entities" [value]="entity.id">
+                {{ entity.acronym }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="campaignValidator.hasError('required')">Please choose a entity for the campaign</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-select placeholder="Currency Type" name="Currency" [(ngModel)]="Currency">
+              <mat-option *ngFor="let entity of CurrencyTypes" [value]="entity.Value">
+                {{ entity.Text }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="campaignValidator.hasError('required')">Please choose a Currency for the campaign</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a closing date" name="ClosingDate" [(ngModel)]="ClosingDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="campaignValidator.hasError('required')">Please provide a name for the campaign</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <mat-radio-group name="CalculationType" [(ngModel)]="CalculationType">
+            <mat-radio-button value="1">Cashflow with FTP</mat-radio-button>
+            <mat-radio-button value="0">Cashflow without FTP</mat-radio-button>
+          </mat-radio-group>
+        </td>
+      </tr>
+    </table>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="addCampaign()" color="primary">Add</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

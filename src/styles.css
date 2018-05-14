@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+body{
+    margin:0;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1,h2,h3,h4,h5{
+    color: rgba(0,0,0,.54);
+    font-family: 'Roboto', sans-serif;
+}
+.button_verti
+{
+    min-height: 56px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}

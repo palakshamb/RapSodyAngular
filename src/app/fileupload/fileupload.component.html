@@ -1,0 +1,8 @@
+<div class="fileInput">
+  <input type="file" name="file" #fileInput style="display: none" (change)="onFileChange($event)">
+  <button mat-raised-button (click)="fileInput.click()">
+    UPLOAD NEW FILE
+    <mat-icon aria-label="Upload">file_upload</mat-icon>
+  </button>
+  <span class="fileName" ng-if="fileNameChanged">{{fileName}}</span>
+</div>
