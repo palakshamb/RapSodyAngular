@@ -2,11 +2,11 @@
 {
     width:100%;
     min-height: 50px;
-    background-color: #3F51B5;
+    background-color: #673ab7;
     margin-bottom: 5px;
     align-items: center;
     display: flex;
-    justify-content: start;
+    flex-direction: row;
     color: white;
 }
 
@@ -16,4 +16,9 @@
   
   button.mat-menu-item{
     font-size: 14px;
+  }
+
+  .appLogo
+  {
+    font-size: 20px !important;
   }

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import {MatPaginator, MatTableDataSource, PageEvent, MAT_DIALOG_DATA, MatDialog, MatDialogContainer, MatCheckbox} from '@angular/material';
+import { MatPaginator, MatTableDataSource, PageEvent, MAT_DIALOG_DATA, MatDialog,
+  MatDialogContainer, MatCheckbox } from '@angular/material';
 import { $$ } from 'protractor';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { MagnitudeEntityService } from '../services/magnitude-entity.service';
-import { MagnitudeEntityViewModel } from '../shared/Entities'
+import { MagnitudeEntityViewModel } from '../shared/Entities';
 
 @Component({
   selector: 'app-bsobs',
@@ -12,10 +13,10 @@ import { MagnitudeEntityViewModel } from '../shared/Entities'
 })
 export class BsobsComponent implements OnInit {
   // displayedColumns= ['Code', 'Label', 'Acronym', 'Currency', 'CodeES', 'SBU', 'SBULabel', 'IsActiveEntity'];
-  displayedColumns= ['Code', 'Label', 'Acronym', 'Currency', 'IsActiveEntity'];
+  displayedColumns = ['Code', 'Label', 'Acronym', 'Currency', 'IsActiveEntity'];
   dataSource = new MatTableDataSource<MagnitudeEntityViewModel>();
-  
-  constructor(public dialog: MatDialog, private magnitudeEntityService: MagnitudeEntityService) { 
+
+  constructor(public dialog: MatDialog, private magnitudeEntityService: MagnitudeEntityService) {
 
   }
 
@@ -25,52 +26,43 @@ export class BsobsComponent implements OnInit {
     this.getMagnitudeData();
   }
 
-  getMagnitudeData()
-  {
-    this.magnitudeEntityService.GetAll().subscribe(success=>{
-      console.log(success);
+  getMagnitudeData() {
+    this.magnitudeEntityService.GetAll().subscribe(success => {
       this.dataSource = new MatTableDataSource<MagnitudeEntityViewModel>(success);
       this.dataSource.paginator = this.paginator;
     }, error => {
     });
   }
 
-  pageEvent($event)
-  {
+  pageEvent($event) {
     console.log($event);
   }
 
-  showUploadedStatus($event)
-  {
+  showUploadedStatus($event) {
     console.log($event);
-    var message;
-    if($event.result)
-    {
-      console.log('File Uploaded successfully')
-      message = { message: "File has been uploaded successfully!" }      
-    }
-    else
-    {
-      message = { message: $event.errors[0] }
+    let message;
+    if ($event.result) {
+      console.log('File Uploaded successfully');
+      message = { message: 'File has been uploaded successfully!' };
+    } else {
+      message = { message: $event.errors[0] };
     }
 
-    let dialogRef = this.dialog.open(AlertComponent, {
+    const dialogRef = this.dialog.open(AlertComponent, {
       width: '700px',
       data: message
     });
 
-    dialogRef.afterClosed().subscribe(result=>{
-      console.log('here')
+    dialogRef.afterClosed().subscribe(result => {
       this.getMagnitudeData();
     });
   }
 
-  updateEntity(data: MagnitudeEntityViewModel)
-  {
+  updateEntity(data: MagnitudeEntityViewModel) {
     console.log('UpdateEntity');
     console.log(data);
     this.magnitudeEntityService.update(data).subscribe(
-      sucess=>{ console.log(sucess) }
-      , error=>{console.log(error)}) ;
+      sucess => { console.log(sucess); }
+      , error => { console.log(error); });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MagnitudeEntityService } from '../services/magnitude-entity.service';
 import { MatDialog, MatPaginator, MatTableDataSource, MatFormField } from '@angular/material';
 import { MagnitudeEntityViewModel, CampignDashboardViewModel } from '../shared/Entities';
@@ -12,7 +12,7 @@ import { Observable, pipe } from 'rxjs';
   templateUrl: './campaign.component.html',
   styleUrls: ['./campaign.component.css']
 })
-export class CampaignComponent implements OnInit {
+export class CampaignComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['Name', 'Entity', 'ClosingDate', 'LastModifiedDate', 'OpenedBy', 'Static', 'Dynamic', 'Delete'];
   dataSource = new MatTableDataSource<CampignDashboardViewModel>();
@@ -27,9 +27,12 @@ export class CampaignComponent implements OnInit {
     this.getCampaignData();
   }
 
+  ngAfterViewInit(): void {
+    // this.getCampaignData();
+  }
+
   private getCampaignData() {
     this.campaignService.GetAll().subscribe(success => {
-      // console.log(success);
       this.dataSource = new MatTableDataSource<CampignDashboardViewModel>(success);
       this.dataSource.paginator = this.paginator;
     }, error => {
@@ -43,29 +46,28 @@ export class CampaignComponent implements OnInit {
   addCampaign() {
 
     if (this.magnitudeData === undefined) {
-      console.log('magnitudeData is empty! Loading from db.')
+      console.log('magnitudeData is empty! Loading from db.');
       this.magnitudeEntityService.GetAll().toPromise().then(data => {
         this.magnitudeData = data;
         this.loadCampaignDialog();
       }).catch(x => console.log(x));
-    }
-    else {
+    } else {
       this.loadCampaignDialog();
     }
   }
 
   private loadCampaignDialog() {
-    var data = {
-      Type: "Add",
-      CampaignName: "",
+    const data = {
+      Type: 'Add',
+      CampaignName: '',
       Entities: this.magnitudeData,
-      Currency: "",
+      Currency: '',
       ClosingDate: null,
       CalculationType: 0,
-      CurrencyTypes: [{ Value: 1, Text: "EUR" }, { Value: 2, Text: "USD" }],
-      Entity: ""
+      CurrencyTypes: [{ Value: 1, Text: 'EUR' }, { Value: 2, Text: 'USD' }],
+      Entity: ''
     };
-    let dialogRef = this.dialog.open(EditCampaignComponent, {
+    const dialogRef = this.dialog.open(EditCampaignComponent, {
       width: '700px',
       data: data
     });

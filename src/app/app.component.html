@@ -1,19 +1,25 @@
 <div class="appNavbar mat-elevation-z5">
-  <div class="appLogo">
-    <button mat-button>Rapsody</button>
+  <div class="appLogo" >
+    <button mat-button style="font-size: 20px;">Rapsody</button>
   </div>
-  <div>
-    <button mat-button>
-      <!-- <mat-icon aria-label="home">home</mat-icon> -->
-      <span routerLink="/Home" routerLinkActive="active" style="padding-left: 5px; vertical-align: center">Dashboard</span>
-    </button>
-    <button mat-button [matMenuTriggerFor]="menu">Referentials</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/MagnitudeEntity" routerLinkActive="active">Magnitude Entity</button>
-      <button mat-menu-item routerLink="/MagnitudeEntity" routerLinkActive="active">Bsobc</button>
-    </mat-menu>
+  <div style="flex-grow: 3" *ngIf="isUserLoggedIn$ | async as isLoggedIn">
+    <div *ngIf='isLoggedIn'>
+      <button mat-button>
+        <!-- <mat-icon aria-label="home">home</mat-icon> -->
+        <span routerLink="/Home" routerLinkActive="active_router_link" style="padding-left: 5px; vertical-align: center">Dashboard</span>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menu">Referentials</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/MagnitudeEntity" routerLinkActive="active_router_link">Magnitude Entity</button>
+        <button mat-menu-item routerLink="/MagnitudeEntity" routerLinkActive="active_router_link">Bsobc</button>
+      </mat-menu>
+    </div>
+  </div>
+  <div style="justify-content: flex-end" *ngIf="isUserLoggedIn$ | async as isLoggedIn">
+    <button *ngIf="isLoggedIn" mat-button (click)="logout()">Logout</button>
   </div>
 </div>
-<div style="width: 95%; margin: auto;">
+
+<div style="width: 85%; margin: auto;">
   <router-outlet></router-outlet>
 </div>

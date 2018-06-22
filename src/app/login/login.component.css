@@ -1,0 +1,13 @@
+mat-card-content>div {
+  width: 100%;
+}
+
+.loginForm
+{
+  width: 30%;
+  margin:15% auto;
+}
+
+mat-form-field{
+  width: 100%;
+}

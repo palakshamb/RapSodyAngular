@@ -1,0 +1,38 @@
+<form [formGroup]="loginForm" class="loginForm">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title><h2>Login</h2> </mat-card-title>
+      <mat-card-subtitle><small>Use "UserName" and "Password" provided by Rapsody admin</small></mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>UserName</mat-label>
+          <input autofocus matInput placeholder="UserName" formControlName="UserName" required>
+          <button *ngIf="loginForm.value.UserName?.length > 0" mat-button matSuffix mat-icon-button aria-label="UserName" (click)="loginForm.value.UserName('')">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-hint>Enter username</mat-hint>          
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput placeholder="Password" formControlName="Password" required>
+          <button *ngIf="loginForm.value.Password?.length > 0" mat-button matSuffix mat-icon-button aria-label="Password" (click)="loginForm.value.Password('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        <mat-hint>Enter password</mat-hint>
+      </mat-form-field>
+    </div>
+    <br>
+    <div *ngIf="errorMessage">
+      <p class="errorText"><small>{{errorMessage}}</small></p>
+    </div>
+  </mat-card-content>
+  <mat-card-actions style="text-align: right;">
+    <button mat-raised-button color="primary" (click)="login()">Login</button>
+  </mat-card-actions>
+</mat-card>
+</form>

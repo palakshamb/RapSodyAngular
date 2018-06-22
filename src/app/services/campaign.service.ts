@@ -9,11 +9,11 @@ import { catchError } from 'rxjs/Operators';
 @Injectable({
   providedIn: 'root'
 })
-export class CampaignService implements IBaseServiceOperations<CampignDashboardViewModel>{
+export class CampaignService implements IBaseServiceOperations<CampignDashboardViewModel> {
 
   constructor(private http: HttpClient) { }
 
-  controllerURL: string = "Campaign";
+  controllerURL = 'Campaign';
   serviceApiURL: string = Constants.API_BASE_URL + this.controllerURL;
 
   GetAll(): Observable<CampignDashboardViewModel[]> {
@@ -21,36 +21,39 @@ export class CampaignService implements IBaseServiceOperations<CampignDashboardV
   }
 
   GetById(id: number): Observable<CampignDashboardViewModel> {
-    let params = new HttpParams().set('id', id.toString());
-    return this.http.get<CampignDashboardViewModel>(this.serviceApiURL, {params: params});
+    const params = new HttpParams().set('id', id.toString());
+    return this.http.get<CampignDashboardViewModel>(this.serviceApiURL, { params: params });
   }
 
-  add(campaign: Campaign): Observable<HttpResponse<Campaign>>
-  {
+  add(campaign: Campaign): Observable<HttpResponse<Campaign>> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       }),
       observe: 'response'
     };
-    return this.http.post<Campaign>(this.serviceApiURL, campaign, { headers: new HttpHeaders({'Content-Type':  'application/json'}),observe: 'response'})
-    .pipe(
-      catchError(this.handleError)
-    );
+
+    console.log(campaign);
+
+    // tslint:disable-next-line:max-line-length
+    return this.http.post<Campaign>(this.serviceApiURL, campaign, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), observe: 'response' })
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  delete(id: number): Observable<HttpResponse<Campaign>>
-  {
+  delete(id: number): Observable<HttpResponse<Campaign>> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       }),
       observe: 'response'
     };
-    return this.http.delete<Campaign>(this.serviceApiURL+"/"+id.toString(), { headers: new HttpHeaders({'Content-Type':  'application/json'}),observe: 'response'})
-    .pipe(
-      catchError(this.handleError)
-    );
+    // tslint:disable-next-line:max-line-length
+    return this.http.delete<Campaign>(this.serviceApiURL + '/' + id.toString(), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), observe: 'response' })
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -67,5 +70,5 @@ export class CampaignService implements IBaseServiceOperations<CampignDashboardV
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 }
